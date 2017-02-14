@@ -1,5 +1,6 @@
 package tbdp.resources;
 
+import org.apache.log4j.Logger;
 import tbdp.common.Result;
 import tbdp.model.Employee;
 import tbdp.model.Employees;
@@ -12,6 +13,7 @@ import java.util.ArrayList;
  * Created by xbkaishui on 17/2/13.
  */
 @Path("/employees") public class EmployResource {
+    private static final Logger logger = Logger.getLogger(EmployResource.class);
     static Employees list = new Employees();
 
     static {
@@ -31,6 +33,7 @@ import java.util.ArrayList;
     }
 
     @GET @Path("/rs") @Produces(MediaType.APPLICATION_JSON) public Result rs() {
+        logger.info("result");
         return new Result("xxx");
     }
 

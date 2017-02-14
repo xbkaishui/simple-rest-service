@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE sqlMap
+        PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+        "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="tbdp">
+
+    <resultMap id="RM.RuleModRela"
+               class="tbdp.model.RuleModRela">
+        <result property="modID" column="ModID" javaType="java.lang.Long"
+                jdbcType="int"/>
+        <result property="ruleID" column="RuleID" javaType="java.lang.Long"
+                jdbcType="int"/>
+        <result property="priority" column="Priority" javaType="java.lang.Integer"
+                jdbcType="tinyint"/>
+        <result property="effDate" column="EffDate" javaType="java.util.Date"
+                jdbcType="datetime"/>
+        <result property="expDate" column="ExpDate" javaType="java.util.Date"
+                jdbcType="datetime"/>
+    </resultMap>
+
+    <select id="RuleModRela.selectByModId" parameterClass="long" resultMap="RM.RuleModRela">
+        SELECT * FROM RuleMod_Rela
+        <dynamic prepend="WHERE">
+            <isGreaterThan prepend="AND" property="value" compareValue="0">
+                ModID = #value#
+            </isGreaterThan>
+        </dynamic>
+    </select>
+
+</sqlMap>

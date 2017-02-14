@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE sqlMap
+        PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+        "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="tbdp">
+
+    <resultMap id="RM.RuleConfig"
+               class="tbdp.model.RuleConfig">
+        <result property="ruleID" column="RuleID" javaType="java.lang.Long"
+                jdbcType="int"/>
+        <result property="ruleType" column="RuleType" javaType="java.lang.Integer"
+                jdbcType="tinyint"/>
+        <result property="ruleContext" column="RuleContext" javaType="java.lang.String"
+                jdbcType="varchar"/>
+        <result property="changeDate" column="ChangeDate" javaType="java.util.Date"
+                jdbcType="datetime"/>
+        <result property="status" column="Status" javaType="java.lang.Integer"
+                jdbcType="tinyint"/>
+    </resultMap>
+
+
+    <select id="RuleConfig.selectById" parameterClass="long" resultMap="RM.RuleConfig">
+        SELECT * FROM Rule_Config
+        <dynamic prepend="WHERE">
+            <isGreaterThan prepend="AND" property="value" compareValue="0">
+                RuleID = #value#
+            </isGreaterThan>
+        </dynamic>
+    </select>
+
+    <select id="RuleConfig.selectByParam" parameterClass="tbdp.param.RuleConfigQueryParam"
+            resultMap="RM.RuleConfig">
+        SELECT * FROM Rule_Config
+        <dynamic prepend="WHERE">
+            <isGreaterThan prepend="AND" property="ruleType" compareValue="0">
+                RuleType = #ruleType#
+            </isGreaterThan>
+            <isNotEmpty prepend="AND" property="status">
+                Status=#status#
+            </isNotEmpty>
+        </dynamic>
+    </select>
+
+</sqlMap>

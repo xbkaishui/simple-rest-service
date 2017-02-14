@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE sqlMapConfig
+        PUBLIC "-//ibatis.apache.org//DTD SQL Map Config 2.0//EN"
+        "http://ibatis.apache.org/dtd/sql-map-config-2.dtd">
+
+<sqlMapConfig>
+
+    <!-- 使用命名空间，用于区分重名问题 -->
+    <settings
+            cacheModelsEnabled="true"
+            enhancementEnabled="true"
+            lazyLoadingEnabled="true"
+            maxRequests="128"
+            maxSessions="10"
+            maxTransactions="5"
+            useStatementNamespaces="false"
+            defaultStatementTimeout="5"
+    />
+
+    <transactionManager type="JDBC">
+        <!-- 数据源 -->
+        <dataSource type="DBCP">
+            <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
+            <property name="url"
+                      value="jdbc:mysql://192.168.13.44:3306/model?useUnicode=true&amp;characterEncoding=utf8&amp;autoReconnect=true&amp;failOverReadOnly=false"/>
+            <property name="username" value="model"/>
+            <property name="password" value="modelK$j$d1KDG"/>
+
+            <property name="initialSize" value="5"/>
+            <property name="maxActive" value="30"/>
+            <property name="maxIdle" value="20"/>
+            <property name="maxWait" value="60000"/>
+            <property name="poolPreparedStatements" value="true"/>
+            <property name="validationQuery" value="select 0 from dual"/>
+            <property name="testOnBorrow" value="true"/>
+        </dataSource>
+    </transactionManager>
+
+
+    <sqlMap resource="tbdp/ibatis/ModConfig.xml"/>
+    <sqlMap resource="tbdp/ibatis/VariConfig.xml"/>
+    <sqlMap resource="tbdp/ibatis/RuleConfig.xml"/>
+    <sqlMap resource="tbdp/ibatis/RuleModRela.xml"/>
+</sqlMapConfig>

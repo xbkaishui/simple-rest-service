@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE sqlMap
+        PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+        "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="tbdp">
+
+    <resultMap id="RM.ModConfig"
+               class="tbdp.model.ModConfig">
+        <result property="modId" column="ModID" javaType="java.lang.Long"
+                jdbcType="int"/>
+        <result property="modName" column="ModName" javaType="java.lang.String"
+                jdbcType="varchar"/>
+
+        <result property="effDate" column="EffDate" javaType="java.util.Date"
+                jdbcType="datetime"/>
+        <result property="expDate" column="ExpDate" javaType="java.util.Date"
+                jdbcType="datetime"/>
+        <result property="modType" column="ModType" javaType="java.lang.Integer"
+                jdbcType="tinyint"/>
+        <result property="modPriority" column="modPriority" javaType="java.lang.Integer"
+                jdbcType="tinyint"/>
+        <result property="status" column="Status" javaType="java.lang.Integer"
+                jdbcType="tinyint"/>
+        <result property="modDesc" column="ModDesc" javaType="java.lang.String"
+                jdbcType="varchar"/>
+        <result property="userID" column="UserID" javaType="java.lang.Integer"
+                jdbcType="int"/>
+    </resultMap>
+
+
+    <!--<insert id="insert" parameterClass="User">-->
+    <!--INSERT INTO user-->
+    <!--<dynamic  prepend="(" close=")">-->
+    <!--<isNotNull property="id" prepend=",">id</isNotNull>-->
+    <!--<isNotNull property="name" prepend=",">name</isNotNull>-->
+    <!--<isNotNull property="sex" prepend=",">sex</isNotNull>-->
+    <!--<isNotNull property="degree" prepend=",">degree</isNotNull>-->
+    <!--</dynamic>-->
+    <!--<dynamic prepend="VALUES(" close=")">-->
+    <!--<isNotNull property="id" prepend=",">#id#</isNotNull>-->
+    <!--<isNotNull property="name" prepend=",">#name#</isNotNull>-->
+    <!--<isNotNull property="sex" prepend=",">#sex#</isNotNull>-->
+    <!--<isNotNull property="degree" prepend=",">#degree#</isNotNull>-->
+    <!--</dynamic>-->
+    <!--<selectKey resultClass="int" keyProperty="id">-->
+    <!--SELECT @@IDENTITY AS id-->
+    <!--</selectKey>-->
+    <!--</insert>-->
+
+
+    <select id="ModConfig.selectById" parameterClass="long" resultMap="RM.ModConfig">
+        SELECT * FROM Mod_Config
+        <dynamic prepend="WHERE">
+            <isGreaterThan prepend="AND" property="value" compareValue="0">
+                ModID = #value#
+            </isGreaterThan>
+        </dynamic>
+    </select>
+
+    <select id="ModConfig.selectByParam" parameterClass="tbdp.param.ModelConfigQueryParam"
+            resultMap="RM.ModConfig">
+        SELECT * FROM Mod_Config
+        <dynamic prepend="WHERE">
+            <isGreaterThan prepend="AND" property="modelId" compareValue="0">
+                ModID = #modelId#
+            </isGreaterThan>
+            <isNotEmpty prepend="AND" property="modType">
+                ModType=#modType#
+            </isNotEmpty>
+            <isNotEmpty prepend="AND" property="status">
+                Status=#status#
+            </isNotEmpty>
+            <isNotEmpty prepend="AND" property="userID">
+                UserID=#userID#
+            </isNotEmpty>
+        </dynamic>
+    </select>
+
+    <!--<delete id="delete" parameterClass="User">-->
+    <!--DELETE FROM user-->
+    <!--<dynamic prepend="WHERE">-->
+    <!--<isGreaterThan prepend="AND" property="id" compareValue="0">-->
+    <!--id = #id#-->
+    <!--</isGreaterThan>-->
+    <!--<isNotNull prepend="AND" property="name">-->
+    <!--name = #name#-->
+    <!--</isNotNull>-->
+    <!--<isGreaterEqual prepend="AND" property="sex" compareValue="0">-->
+    <!--sex = #sex#-->
+    <!--</isGreaterEqual>-->
+    <!--<isGreaterThan prepend="AND" property="degree" compareValue="0.00">-->
+    <!--degree = #degree#-->
+    <!--</isGreaterThan>-->
+    <!--</dynamic>-->
+    <!--</delete>-->
+
+    <!--<update id="update" parameterClass="User">-->
+    <!--UPDATE user SET name = #name#, sex = #sex#, degree = #degree# WHERE id = #id#-->
+    <!--</update>-->
+</sqlMap>

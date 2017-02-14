@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE sqlMap
+        PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+        "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="tbdp">
+
+    <resultMap id="RM.VariConfig"
+               class="tbdp.model.VariConfig">
+        <result property="variID" column="VariID" javaType="java.lang.Long"
+                jdbcType="int"/>
+        <result property="variType" column="VariType" javaType="java.lang.Integer"
+                jdbcType="tinyint"/>
+        <result property="variTag" column="VariTag" javaType="java.lang.Integer"
+                jdbcType="tinyint"/>
+        <result property="variCode" column="VariCode" javaType="java.lang.String"
+                jdbcType="varchar"/>
+        <result property="variName" column="VariName" javaType="java.lang.String"
+                jdbcType="varchar"/>
+        <result property="variSrc" column="VariSrc" javaType="java.lang.String"
+                jdbcType="varchar"/>
+        <result property="srcCol" column="SrcCol" javaType="java.lang.String"
+                jdbcType="varchar"/>
+        <result property="srcColType" column="SrcColType" javaType="java.lang.String"
+                jdbcType="varchar"/>
+        <result property="srcCondition" column="SrcCondition" javaType="java.lang.String"
+                jdbcType="varchar"/>
+    </resultMap>
+
+
+    <select id="VariConfig.selectById" parameterClass="long" resultMap="RM.VariConfig">
+        SELECT * FROM Vari_Config
+        <dynamic prepend="WHERE">
+            <isGreaterThan prepend="AND" property="value" compareValue="0">
+                VariID = #value#
+            </isGreaterThan>
+        </dynamic>
+    </select>
+
+    <select id="VariConfig.selectByVarCode" parameterClass="string"
+            resultMap="RM.VariConfig">
+        SELECT * FROM Vari_Config
+        <dynamic prepend="WHERE">
+            <isNotEmpty prepend="AND" property="value">
+                VariCode=#value#
+            </isNotEmpty>
+        </dynamic>
+    </select>
+
+</sqlMap>
