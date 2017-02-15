@@ -9,6 +9,7 @@ import com.fasterxml.jackson.databind.introspect.JacksonAnnotationIntrospector;
 import com.fasterxml.jackson.databind.type.TypeFactory;
 import com.fasterxml.jackson.module.jaxb.JaxbAnnotationIntrospector;
 import org.junit.Test;
+import tbdp.common.result.ModelResult;
 import tbdp.model.ModConfig;
 
 import java.util.ArrayList;
@@ -42,7 +43,8 @@ public class JacksonTest {
         mc2.setModId(1l);
         configList.add(mc2);
 
-        Result result = new Result(configList);
+        ModelResult result = new ModelResult();
+        result.setData(configList);
         try {
             String jsonInString = mapper.writeValueAsString(result);
             System.out.println(jsonInString);
