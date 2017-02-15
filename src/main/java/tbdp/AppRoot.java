@@ -20,7 +20,7 @@ public class AppRoot extends ResourceConfig {
     private static Logger LOGGER = Logger.getLogger(AppRoot.class.getSimpleName());
     public AppRoot() {
         // logging
-        registerInstances(new LoggingFeature(LOGGER, LoggingFeature.Verbosity.PAYLOAD_ANY));
+//        registerInstances(new LoggingFeature(LOGGER, LoggingFeature.Verbosity.PAYLOAD_ANY));
 
         // Select packages to scan for resources and providers
         packages("tbdp.resources","com.example",

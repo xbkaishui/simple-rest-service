@@ -2,8 +2,10 @@ package tbdp.resources;
 
 import org.apache.log4j.Logger;
 import tbdp.common.Result;
+import tbdp.common.result.ModelResult;
 import tbdp.model.Employees;
 import tbdp.model.ModConfig;
+import tbdp.model.Models;
 import tbdp.param.ModelConfigQueryParam;
 
 import javax.ws.rs.GET;
@@ -18,18 +20,45 @@ import java.util.List;
  */
 @Path("/models") public class ModelResource extends BaseResource {
 
-    @GET @Produces(MediaType.APPLICATION_JSON) public Result getAllModels() {
-        Result<List<ModConfig>> result = null;
+    @GET @Produces(MediaType.APPLICATION_JSON) public ModelResult getAllModels() {
+        ModelResult result = new ModelResult();
+        ;
         ModelConfigQueryParam param = new ModelConfigQueryParam();
         try {
             List<ModConfig> models = modelDAO.selectByParam(param);
-            result = new Result<>(models);
+            result.setData(models);
         } catch (SQLException e) {
-            result = new Result<>().setSuccess(false);
+            result.setSuccess(false);
             logger.error(e);
         }
         return result;
     }
+
+    @GET @Path("rr") @Produces(MediaType.APPLICATION_JSON) public Models getAllModelsRR() {
+        ModelConfigQueryParam param = new ModelConfigQueryParam();
+        Models models1 = new Models();
+        try {
+            List<ModConfig> models = modelDAO.selectByParam(param);
+            models1.setModels(models);
+        } catch (SQLException e) {
+            logger.error(e);
+        }
+        return models1;
+    }
+
+    //    @GET
+    //    @Path("rrs")
+    //    @Produces(MediaType.APPLICATION_JSON) public Result getAllModelsRRs() {
+    //        ModelConfigQueryParam param = new ModelConfigQueryParam();
+    //        Models models1 = new Models();
+    //        try {
+    //            List<ModConfig> models = modelDAO.selectByParam(param);
+    //            models1.setModels(models);
+    //        } catch (SQLException e) {
+    //            logger.error(e);
+    //        }
+    //        return new Result(models1);
+    //    }
 
 
 }

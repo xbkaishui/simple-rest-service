@@ -1,14 +1,12 @@
 package tbdp.model;
 
-import tbdp.common.ToString;
-
 import java.util.Date;
 
 /**
  * 模型配置对象
  * Created by xbkaishui on 16/12/18.
  */
-public class ModConfig extends ToString {
+public class ModConfig {
 
     private Long modId;
     private String modName;
@@ -17,7 +15,7 @@ public class ModConfig extends ToString {
     private Date effDate;
     private Date expDate;
     private Integer status;
-    private Integer userID;
+    private String userID;
     private String modDesc;
 
     public Long getModId() {
@@ -76,11 +74,11 @@ public class ModConfig extends ToString {
         this.status = status;
     }
 
-    public Integer getUserID() {
+    public String getUserID() {
         return userID;
     }
 
-    public void setUserID(Integer userID) {
+    public void setUserID(String userID) {
         this.userID = userID;
     }
 
@@ -91,6 +89,4 @@ public class ModConfig extends ToString {
     public void setModDesc(String modDesc) {
         this.modDesc = modDesc;
     }
-
-
 }

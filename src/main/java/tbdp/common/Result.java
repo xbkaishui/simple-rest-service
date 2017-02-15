@@ -5,28 +5,15 @@ import javax.xml.bind.annotation.XmlRootElement;
 /**
  * Created by xbkaishui on 17/2/13.
  */
-public class Result<T> extends ToString {
-    T data;
+public class Result extends ToString {
     /**
      * 成功标志位
      */
     private boolean success = false;
+    private String errorMsg;
 
     public Result() {
-    }
-
-    public Result(T data) {
-        this.data = data;
-        this.success = true;
-    }
-
-    public T getData() {
-        return data;
-    }
-
-    public Result setData(T data) {
-        this.data = data;
-        return this;
+        setSuccess(true);
     }
 
     public boolean isSuccess() {
@@ -35,6 +22,15 @@ public class Result<T> extends ToString {
 
     public Result setSuccess(boolean success) {
         this.success = success;
+        return this;
+    }
+
+    public String getErrorMsg() {
+        return errorMsg;
+    }
+
+    public Result setErrorMsg(String errorMsg) {
+        this.errorMsg = errorMsg;
         return this;
     }
 }

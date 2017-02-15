@@ -2,6 +2,7 @@ package tbdp.resources;
 
 import org.apache.log4j.Logger;
 import tbdp.common.Result;
+import tbdp.common.result.EmployResult;
 import tbdp.model.Employee;
 import tbdp.model.Employees;
 
@@ -34,7 +35,15 @@ import java.util.ArrayList;
 
     @GET @Path("/rs") @Produces(MediaType.APPLICATION_JSON) public Result rs() {
         logger.info("result");
-        return new Result("xxx");
+        return new Result();
+    }
+
+    @GET @Path("/rss") @Produces(MediaType.APPLICATION_JSON) public EmployResult rss() {
+        EmployResult result = new EmployResult();
+        String id = "11";
+        result.setEmployee((new Employee(Integer.valueOf(id), "emp" + id)));
+        logger.info(result);
+        return result;
     }
 
     @GET @Path("/exp") public Employee exp() {
@@ -45,10 +54,10 @@ import java.util.ArrayList;
         try {
             System.out.println(e);
             list.getEmployeeList().add(e);
-            return new Result("ok");
+            return new Result();
         } catch (Exception exp) {
             exp.printStackTrace();
-            return new Result("error");
+            return new Result().setSuccess(false);
         }
     }
 }

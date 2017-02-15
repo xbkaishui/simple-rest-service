@@ -9,6 +9,7 @@ import javax.ws.rs.ext.Provider;
     private static final long serialVersionUID = 1L;
 
     @Override public Response toResponse(Throwable exception) {
+        exception.printStackTrace();
         return Response.status(500).entity("Something bad happened. Please try again !!")
             .type(MediaType.APPLICATION_JSON).build();
     }
