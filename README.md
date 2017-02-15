@@ -12,5 +12,7 @@
 
 [jersey](https://jersey.java.net/documentation/latest/index.html)
 
+[jersey rest service](http://www.codingpedia.org/ama/tutorial-rest-api-design-and-implementation-in-java-with-jersey-and-spring/)
+
 [CORS Support](http://www.codingpedia.org/ama/how-to-add-cors-support-on-the-server-side-in-java-with-jersey/)
 
