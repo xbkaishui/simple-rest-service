@@ -11,8 +11,14 @@ import java.util.List;
  */
 public interface ModConfigDAO {
 
-    ModConfig selectById(long id ) throws SQLException;
+    ModConfig selectById(long id) throws SQLException;
 
-    List<ModConfig> selectByParam(ModelConfigQueryParam param) throws SQLException ;
+    List<ModConfig> selectByParam(ModelConfigQueryParam param) throws SQLException;
+
+    public void deleteById(long id) throws SQLException;
+
+    public Long insert(ModConfig mod) throws SQLException;
+
+    public void update(ModConfig mod) throws SQLException;
 
 }

@@ -8,6 +8,7 @@ import org.glassfish.jersey.server.ServerProperties;
 import org.glassfish.jersey.server.filter.HttpMethodOverrideFilter;
 import org.glassfish.jersey.server.filter.RolesAllowedDynamicFeature;
 import org.glassfish.jersey.server.mvc.beanvalidation.MvcBeanValidationFeature;
+import tbdp.providers.CORSResponseFilter;
 
 import javax.ws.rs.ApplicationPath;
 import java.util.logging.Logger;
@@ -56,6 +57,8 @@ public class AppRoot extends ResourceConfig {
         // Enable MVC FreeMarker templating engine
         register(MvcBeanValidationFeature.class);
 
+        //CORS support
+        register(CORSResponseFilter.class);
         // Enable SSE support
 //        register(SseFeature.class);
     }

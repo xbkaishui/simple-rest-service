@@ -1,7 +1,5 @@
 package tbdp.common;
 
-import javax.xml.bind.annotation.XmlRootElement;
-
 /**
  * Created by xbkaishui on 17/2/13.
  */

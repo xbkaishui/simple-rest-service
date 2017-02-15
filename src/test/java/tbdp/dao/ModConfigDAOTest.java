@@ -26,6 +26,32 @@ public class ModConfigDAOTest {
         Assert.assertNotNull(config);
     }
 
+    @Test public void testInsert() throws SQLException {
+        ModConfig config = new ModConfig();
+        config.setModName("test");
+        config.setModPriority(1);
+        config.setModType(1);
+        config.setModDesc("test desc");
+        config.setUserID("xb");
+        config.setStatus(1);
+        long id = modConfigDAO.insert(config);
+        System.out.println("create model Id " + id);
+        Assert.assertTrue(id > 0);
+    }
+
+    @Test public void testUpdate() throws SQLException {
+        ModConfig config = new ModConfig();
+        config.setModId(97l);
+        config.setModDesc("test desc update");
+        modConfigDAO.update(config);
+        ModConfig configNew = modConfigDAO.selectById(97l);
+        Assert.assertEquals(configNew.getModDesc(),"test desc update");
+    }
+
+    @Test public void testDelete() throws SQLException {
+        modConfigDAO.deleteById(98l);
+    }
+
     @Test public void testSelectByParam() throws SQLException {
         ModelConfigQueryParam param = new ModelConfigQueryParam();
         param.setStatus(1);

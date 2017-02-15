@@ -29,27 +29,6 @@
                 jdbcType="varchar"/>
     </resultMap>
 
-
-    <!--<insert id="insert" parameterClass="User">-->
-    <!--INSERT INTO user-->
-    <!--<dynamic  prepend="(" close=")">-->
-    <!--<isNotNull property="id" prepend=",">id</isNotNull>-->
-    <!--<isNotNull property="name" prepend=",">name</isNotNull>-->
-    <!--<isNotNull property="sex" prepend=",">sex</isNotNull>-->
-    <!--<isNotNull property="degree" prepend=",">degree</isNotNull>-->
-    <!--</dynamic>-->
-    <!--<dynamic prepend="VALUES(" close=")">-->
-    <!--<isNotNull property="id" prepend=",">#id#</isNotNull>-->
-    <!--<isNotNull property="name" prepend=",">#name#</isNotNull>-->
-    <!--<isNotNull property="sex" prepend=",">#sex#</isNotNull>-->
-    <!--<isNotNull property="degree" prepend=",">#degree#</isNotNull>-->
-    <!--</dynamic>-->
-    <!--<selectKey resultClass="int" keyProperty="id">-->
-    <!--SELECT @@IDENTITY AS id-->
-    <!--</selectKey>-->
-    <!--</insert>-->
-
-
     <select id="ModConfig.selectById" parameterClass="long" resultMap="RM.ModConfig">
         SELECT * FROM Mod_Config
         <dynamic prepend="WHERE">
@@ -78,25 +57,61 @@
         </dynamic>
     </select>
 
-    <!--<delete id="delete" parameterClass="User">-->
-    <!--DELETE FROM user-->
-    <!--<dynamic prepend="WHERE">-->
-    <!--<isGreaterThan prepend="AND" property="id" compareValue="0">-->
-    <!--id = #id#-->
-    <!--</isGreaterThan>-->
-    <!--<isNotNull prepend="AND" property="name">-->
-    <!--name = #name#-->
-    <!--</isNotNull>-->
-    <!--<isGreaterEqual prepend="AND" property="sex" compareValue="0">-->
-    <!--sex = #sex#-->
-    <!--</isGreaterEqual>-->
-    <!--<isGreaterThan prepend="AND" property="degree" compareValue="0.00">-->
-    <!--degree = #degree#-->
-    <!--</isGreaterThan>-->
-    <!--</dynamic>-->
-    <!--</delete>-->
+    <insert id="ModConfig.insert">
+        <![CDATA[
+			insert INTO Mod_Config (
+		        ModID,
+		        ModName,
+		        ModType,
+		        ModPriority,
+		        EffDate,
+		        ExpDate,
+		        Status,
+		        UserID,
+		        ModDesc
+			) VALUES (
+			    #modId#,
+		        #modName#,
+		        #modType#,
+		        #modPriority#,
+				now(),
+				now(),
+				#status#,
+				#userID#,
+				#modDesc#
+			)
+			]]>
+        <selectKey resultClass="java.lang.Long" keyProperty="modId">
+            SELECT
+            @@IDENTITY AS modId
+        </selectKey>
+    </insert>
 
-    <!--<update id="update" parameterClass="User">-->
-    <!--UPDATE user SET name = #name#, sex = #sex#, degree = #degree# WHERE id = #id#-->
-    <!--</update>-->
+    <delete id="ModConfig.delete" >
+        delete from Mod_Config where ModID=#modId#
+    </delete>
+
+    <update id="ModConfig.update" >
+        UPDATE  Mod_Config
+        SET EffDate = now()
+        <isNotEmpty property="modName" prepend=",">
+            ModName = #modName#
+        </isNotEmpty>
+        <isNotEmpty property="modType" prepend=",">
+            ModType = #modType#
+        </isNotEmpty>
+        <isNotEmpty property="status" prepend=",">
+            Status = #status#
+        </isNotEmpty>
+        <isNotEmpty property="modDesc" prepend=",">
+            ModDesc = #modDesc#
+        </isNotEmpty>
+        <isNotEmpty property="userID" prepend=",">
+            UserID = #userID#
+        </isNotEmpty>
+        <isNotEmpty property="modPriority" prepend=",">
+            ModPriority = #modPriority#
+        </isNotEmpty>
+        WHERE ModId=#modId#
+    </update>
 </sqlMap>

@@ -1,12 +1,14 @@
 package tbdp.model;
 
+import tbdp.common.ToString;
+
 import java.util.Date;
 
 /**
  * 模型配置对象
  * Created by xbkaishui on 16/12/18.
  */
-public class ModConfig {
+public class ModConfig extends ToString {
 
     private Long modId;
     private String modName;

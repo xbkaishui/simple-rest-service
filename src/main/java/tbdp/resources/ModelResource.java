@@ -1,16 +1,11 @@
 package tbdp.resources;
 
-import org.apache.log4j.Logger;
 import tbdp.common.Result;
 import tbdp.common.result.ModelResult;
-import tbdp.model.Employees;
 import tbdp.model.ModConfig;
-import tbdp.model.Models;
 import tbdp.param.ModelConfigQueryParam;
 
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
+import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import java.sql.SQLException;
 import java.util.List;
@@ -18,11 +13,11 @@ import java.util.List;
 /**
  * Created by xbkaishui on 17/2/14.
  */
-@Path("/models") public class ModelResource extends BaseResource {
+@Path("/models")
+public class ModelResource extends BaseResource {
 
     @GET @Produces(MediaType.APPLICATION_JSON) public ModelResult getAllModels() {
         ModelResult result = new ModelResult();
-        ;
         ModelConfigQueryParam param = new ModelConfigQueryParam();
         try {
             List<ModConfig> models = modelDAO.selectByParam(param);
@@ -34,31 +29,42 @@ import java.util.List;
         return result;
     }
 
-    @GET @Path("rr") @Produces(MediaType.APPLICATION_JSON) public Models getAllModelsRR() {
-        ModelConfigQueryParam param = new ModelConfigQueryParam();
-        Models models1 = new Models();
+    @DELETE @Path("{id}") @Produces(MediaType.APPLICATION_JSON)
+    public Result deleteModel(@PathParam("id") String modId) {
+        Result result = new Result();
         try {
-            List<ModConfig> models = modelDAO.selectByParam(param);
-            models1.setModels(models);
-        } catch (SQLException e) {
+            modelDAO.deleteById(Long.parseLong(modId));
+            result.setSuccess(true);
+        } catch (Exception e) {
+            result.setSuccess(false);
             logger.error(e);
         }
-        return models1;
+        return result;
     }
 
-    //    @GET
-    //    @Path("rrs")
-    //    @Produces(MediaType.APPLICATION_JSON) public Result getAllModelsRRs() {
-    //        ModelConfigQueryParam param = new ModelConfigQueryParam();
-    //        Models models1 = new Models();
-    //        try {
-    //            List<ModConfig> models = modelDAO.selectByParam(param);
-    //            models1.setModels(models);
-    //        } catch (SQLException e) {
-    //            logger.error(e);
-    //        }
-    //        return new Result(models1);
-    //    }
+    @PUT @Path("{id}") @Produces(MediaType.APPLICATION_JSON)
+    public Result updateModel(@PathParam("id") String modId, ModConfig modConfig) {
+        Result result = new Result();
+        try {
+            modelDAO.update(modConfig);
+            result.setSuccess(true);
+        } catch (Exception e) {
+            result.setSuccess(false);
+            logger.error(e);
+        }
+        return result;
+    }
 
+    @POST @Produces(MediaType.APPLICATION_JSON) public Result addModel(ModConfig modConfig) {
+        Result result = new Result();
+        try {
+            modelDAO.insert(modConfig);
+            result.setSuccess(true);
+        } catch (Exception e) {
+            result.setSuccess(false);
+            logger.error(e);
+        }
+        return result;
+    }
 
 }

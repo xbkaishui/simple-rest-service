@@ -20,4 +20,16 @@ public class ModelConfigIbatisDAOImpl extends BaseDaoTemplate implements ModConf
     public List<ModConfig> selectByParam(ModelConfigQueryParam param) throws SQLException {
         return sqlMapClient.queryForList("ModConfig.selectByParam", param);
     }
+
+    public void deleteById(long id) throws SQLException {
+        sqlMapClient.delete("ModConfig.delete",id);
+    }
+
+    public Long insert(ModConfig mod) throws SQLException {
+       return (Long) sqlMapClient.insert("ModConfig.insert", mod);
+    }
+
+    public void update(ModConfig mod) throws SQLException {
+        sqlMapClient.update("ModConfig.update", mod);
+    }
 }
