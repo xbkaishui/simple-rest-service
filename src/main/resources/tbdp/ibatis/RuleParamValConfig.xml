@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE sqlMap
+        PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+        "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="tbdp">
+
+    <resultMap id="RM.RuleParamValConfig"
+               class="tbdp.model.RuleParamValConfig">
+        <result property="ruleID" column="RuleID" javaType="java.lang.Long"
+                jdbcType="int"/>
+        <result property="modID" column="ModID" javaType="java.lang.Long"
+                jdbcType="int"/>
+        <result property="variParamID" column="VariParamID" javaType="java.lang.String"
+                jdbcType="varchar"/>
+        <result property="variParamVal" column="VariParamVal" javaType="java.lang.String"
+                jdbcType="varchar"/>
+    </resultMap>
+
+
+    <select id="RuleParamValConfig.selectByParam"
+            parameterClass="tbdp.param.RuleParamValQueryParam"
+            resultMap="RM.RuleParamValConfig">
+        SELECT * FROM RuleParamVal_Config
+        <dynamic prepend="WHERE">
+            <isGreaterThan prepend="AND" property="ruleID" compareValue="0">
+                RuleID = #ruleID#
+            </isGreaterThan>
+            <isGreaterThan prepend="AND" property="modID" compareValue="0">
+                ModID = #modID#
+            </isGreaterThan>
+            <isNotEmpty prepend="AND" property="variParamID">
+                VariParamID=#variParamID#
+            </isNotEmpty>
+        </dynamic>
+    </select>
+
+</sqlMap>

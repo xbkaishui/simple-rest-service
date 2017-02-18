@@ -1,6 +1,7 @@
 package tbdp.model;
 
 import tbdp.common.ToString;
+import tbdp.es.common.EsQueryField;
 
 import java.io.Serializable;
 import java.util.List;
@@ -17,6 +18,8 @@ public class Rule extends ToString {
     private List<Vari> vars;
     //是否包含历史批量指标
     private Boolean containBatchVar = false;
+
+    private List<EsQueryField> queryFields;
 
     public RuleConfig getRuleConfig() {
         return ruleConfig;
@@ -48,5 +51,13 @@ public class Rule extends ToString {
 
     public void setContainBatchVar(Boolean containBatchVar) {
         this.containBatchVar = containBatchVar;
+    }
+
+    public List<EsQueryField> getQueryFields() {
+        return queryFields;
+    }
+
+    public void setQueryFields(List<EsQueryField> queryFields) {
+        this.queryFields = queryFields;
     }
 }

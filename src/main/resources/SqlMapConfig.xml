@@ -57,4 +57,6 @@
     <sqlMap resource="tbdp/ibatis/VariConfig.xml"/>
     <sqlMap resource="tbdp/ibatis/RuleConfig.xml"/>
     <sqlMap resource="tbdp/ibatis/RuleModRela.xml"/>
+    <sqlMap resource="tbdp/ibatis/RuleParamValConfig.xml"/>
+
 </sqlMapConfig>
