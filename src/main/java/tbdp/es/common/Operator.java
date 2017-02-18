@@ -8,17 +8,18 @@ import java.util.Map;
  */
 public enum Operator {
 
-    LTHAN(14,15), //<
-    GTHAN(15,14), //>
+    LTHAN(14, 15, "<"), //<
+    GTHAN(15, 14, ">"), //>
 
-    LETHAN(16,17),//>=
-    GETHAN(17,16),//<=
+    LETHAN(16, 17, "<="),//<=
+    GETHAN(17, 16, ">="),//>=
 
-    EQUAL(18), //=
-    NEQUAL(19);//!=
+    EQUAL(18, "="), //=
+    NEQUAL(19, "!=");//!=
 
     private int val;
     private int reverseVal = -1;
+    private String oper;
 
     private static Map<Integer, Operator> valueMap = new HashMap<>();
 
@@ -32,10 +33,23 @@ public enum Operator {
         this.val = val;
     }
 
-    Operator(int val,int reverseVal) {
+    Operator(int val, String oper) {
+        this.val = val;
+        this.oper = oper;
+    }
+
+
+    Operator(int val, int reverseVal) {
         this.val = val;
         this.reverseVal = reverseVal;
     }
+
+    Operator(int val, int reverseVal, String oper) {
+        this.val = val;
+        this.reverseVal = reverseVal;
+        this.oper = oper;
+    }
+
 
 
     public int getVal() {
@@ -46,7 +60,7 @@ public enum Operator {
         return reverseVal;
     }
 
-    public Operator reverse(){
+    public Operator reverse() {
         return getByVal(reverseVal);
     }
 
@@ -54,4 +68,7 @@ public enum Operator {
         return valueMap.get(val);
     }
 
+    public String getOper() {
+        return oper;
+    }
 }

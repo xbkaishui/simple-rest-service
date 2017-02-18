@@ -1,5 +1,6 @@
 package tbdp.es.common;
 
+import com.google.common.base.Joiner;
 import tbdp.common.ToString;
 
 /**
@@ -43,5 +44,9 @@ public class EsQueryField extends ToString {
 
     public void setOperator(Operator operator) {
         this.operator = operator;
+    }
+
+    public String toCondition() {
+        return Joiner.on(" ").join(name, operator.getOper(), value);
     }
 }
